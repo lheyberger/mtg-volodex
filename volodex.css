@@ -1,0 +1,43 @@
+.column {
+    height: 100%;
+    width: 1fr;
+    border: solid green;
+}
+
+.w20 {
+    width: 20fr;
+}
+
+.w40 {
+    width: 40fr;
+}
+
+.h20 {
+    height: 20fr;
+}
+
+.h80 {
+    height: 80fr;
+}
+
+.left {
+    align-horizontal: left;
+}
+
+.right {
+    content-align: right middle;
+    width: 1fr;
+    padding-right: 1;
+}
+
+.red {
+    background: red;
+}
+
+.blue {
+    background: blue;
+}
+
+.yellow {
+    background: yellow;
+}
