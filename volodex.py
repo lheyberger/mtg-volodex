@@ -38,10 +38,16 @@ class CardListItem(ListItem):
         super().__init__()
         self.card = card
         self.key = card['name']
+        self.addons = ''.join([
+            '+' if len(self.card['subtypes']) > 1 else '',
+            '*' if 'Legendary' in self.card['type'] else '',
+        ])
 
     def compose(self) -> ComposeResult:
         with Horizontal():
             yield Label(self.card['name'])
+            if self.addons:
+                yield Label(self.addons, classes='addon')
             yield Label(self.card['manaCost'], classes='right')
 
 
@@ -265,6 +271,9 @@ def update():
             card_name = card.get('faceName') or card.get('name')
             if card_name in unique_card_names:
                 continue
+            text = card.get('text', '')
+            if not text:
+                continue
             unique_card_names.add(card_name)
             filtered_cards.append({
                 'name': card_name,
@@ -275,13 +284,13 @@ def update():
                 'type': card.get('type'),
                 'subtypes': subtypes,
                 'edhrecRank': card.get('edhrecRank', 999999),
-                'text': card.get('text', ''),
+                'text': text,
                 'power': card.get('power'),
                 'toughness': card.get('toughness'),
             })
 
     with open('volodex.json', 'w', encoding='utf-8') as f:
-        json.dump(filtered_cards, f, indent=4)
+        json.dump(filtered_cards, f, indent=2)
 
     print('Total Cards', len(filtered_cards))
 
