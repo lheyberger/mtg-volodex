@@ -18,7 +18,7 @@ from textual.app import App, ComposeResult
 from textual.containers import Horizontal, Vertical
 from textual.reactive import reactive
 from textual.widget import Widget
-from textual.widgets import Header, Footer, Static, Label, ListView, ListItem, RichLog
+from textual.widgets import Header, Footer, Static, Label, ListView, ListItem, RichLog, Input
 
 
 class CompositeLabelItem(ListItem):
@@ -72,7 +72,11 @@ class CreatureApp(App):
 
         self.sort_alnum = False
         self.sort_cmc = False
+        self.filter_words = []
 
+        self.filter_field = Input(
+            placeholder="Type filter words...",
+        )
         self.type_list = ListView(
             id='type_list',
             classes='column w20',
@@ -131,6 +135,7 @@ class CreatureApp(App):
 
     def compose(self) -> ComposeResult:
         yield Header()
+        yield self.filter_field
         with Horizontal(classes='h80'):
             yield self.type_list
             yield self.creature_list
@@ -144,7 +149,9 @@ class CreatureApp(App):
 
         all_types = []
         for card in self.volodex:
-            all_types.extend(card['subtypes'])
+            lower_text = card['text'].lower()
+            if not self.filter_words or all(word in lower_text for word in self.filter_words):
+                all_types.extend(card['subtypes'])
         all_types_dict = dict(Counter(all_types).most_common())
 
         items = (CompositeLabelItem(name, quantity) for name,quantity in all_types_dict.items())
@@ -153,6 +160,15 @@ class CreatureApp(App):
         await self.type_list.clear()
         await self.type_list.extend(items)
         self.type_list.index = 0
+
+
+    @on(Input.Submitted)
+    async def _on_input_submitted(self, event: Input.Submitted) -> None:
+        self.rich_log.write(f'_on_input_submitted()')
+        self.filter_words = (event.value or '').lower().split()
+        self.rich_log.write(self.filter_words)
+        self.type_list.focus()
+        await self.on_mount()
 
 
     @on(ListView.Highlighted, "#type_list")
@@ -165,6 +181,9 @@ class CreatureApp(App):
         if event.item:
             selected_subtype = event.item.label
             cards = filter(lambda card: selected_subtype in card['subtypes'], self.volodex)
+
+            if self.filter_words:
+                cards = filter(lambda card: all(word in card['text'].lower() for word in self.filter_words), cards)
 
             if self.sort_cmc:
                 cards = sorted(cards, key=itemgetter('manaValue'))
