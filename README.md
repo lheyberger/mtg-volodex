@@ -12,7 +12,7 @@ The application displays only the creature types that are not currently in your 
 - [Caching](#caching)
 
 
-> [!CAUTION]
+> [!NOTE]
 > This code was written specifically to solve my unique use case and workflow. It is designed to meet my requirements and priorities, and as such, it may not follow the most optimal practices or be universally applicable.
 >
 > If you find the code useful for your purposes, feel free to use or modify it as needed. However, I cannot guarantee its suitability for any use case other than my own. Use at your own discretion! 😊
