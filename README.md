@@ -1,7 +1,7 @@
-# mtg-volodex
+# Volodex, Commander Companion App
 
 The `volodex` is a CLI companion app to discover new creatures for your [Volo, Guide to Monsters](https://scryfall.com/card/afr/238/volo-guide-to-monsters) Commander deck.
-The application displays only the creature types that are not currently in your decklist, if one is provided.
+It helps you discover and find creatures whose types are not currently in your decklist.
 
 
 ## Table of contents
@@ -13,8 +13,8 @@ The application displays only the creature types that are not currently in your 
 
 
 > [!NOTE]
-> This code was written specifically to solve my unique use case and workflow. It is designed to meet my requirements and priorities, and as such, it may not follow the most optimal practices or be universally applicable.
->
+> This code was written specifically to solve my unique requirements, use cases and workflows. It may not follow the most optimal practices or be universally applicable.
+> 
 > If you find the code useful for your purposes, feel free to use or modify it as needed. However, I cannot guarantee its suitability for any use case other than my own. Use at your own discretion! 😊
 
 
@@ -48,7 +48,7 @@ Cards database is fetched from the [mtgjson.com](https://mtgjson.com) api.
 
 ### Install the app
 
-Set the virtual environment and install the dependencies:
+Create the virtual environment and install the dependencies:
 
 ```Shell
 $ ./install.sh
@@ -57,7 +57,7 @@ $ ./install.sh
 
 ### Setup the card database
 
-Download the card database and filter it:
+Download the card database from [mtgjson.com](https://mtgjson.com) and filter it:
 
 ```Shell
 $ ./volodex.sh download
@@ -88,7 +88,7 @@ The `volodex` relies on [mtg-parser](https://pypi.org/project/mtg_parser/) for p
 ### Interface
 
 The `volodex` user interface is composed of several panels.
-1. **Filters** (top panel): Allows you to filter cards that contain only specific words (eg. `draw`, `token`, `enters`, etc.). Press `enter` to validate and update the available creatures.
+1. **Filters** (top panel): Allows you to filter cards that contain specific words (eg. `draw`, `token`, `enters`, etc.). Press `enter` to validate and update the available creatures.
 2. **Creature types** (left panel): Lists available creature types and the number of creatures for this type. If a creature has multiple types, its counted several times.
 3. **Creatures** (center panel): Lists the creatures and their mana value for the selected type. Several "add-ons" can be displayed at the end of the creature name:
     - `'+'` this creature has multiple sub-types
