@@ -18,6 +18,9 @@ The application displays only the creature types that are not currently in your 
 > If you find the code useful for your purposes, feel free to use or modify it as needed. However, I cannot guarantee its suitability for any use case other than my own. Use at your own discretion! 😊
 
 
+![Screen capture of the Volodex user interface](./assets/volodex.png)
+
+
 ## Prerequisites
 
 Before using the `volodex`, you will need:
@@ -81,7 +84,30 @@ The `volodex` relies on [mtg-parser](https://pypi.org/project/mtg_parser/) for p
 
 ## Usage
 
-🚧 WIP
+
+### Interface
+
+The `volodex` user interface is composed of several panels.
+1. **Filters** (top panel): Allows you to filter cards that contain only specific words (eg. `draw`, `token`, `enters`, etc.). Press `enter` to validate and update the available creatures.
+2. **Creature types** (left panel): Lists available creature types and the number of creatures for this type. If a creature has multiple types, its counted several times.
+3. **Creatures** (center panel): Lists the creatures and their mana value for the selected type. Several "add-ons" can be displayed at the end of the creature name:
+    - `'+'` this creature has multiple sub-types
+    - `'*'` this creature is legendary
+4. **Creature details** (right panel): Displays basic information for the selected creature (name, mana value, type, power/toughness, oracle text).
+5. **Debug** (bottom panel): Will probably be removed at some point. Displays basic debugging information.
+
+
+### Features and Commands
+
+Here's a list of the different interactions:
+- `tab`: Cycle through panels
+- `q`: Quit the `volodex`
+- `a`: Toggle sorting of creature types between alphabetical order and number of creatures in the type.
+- `c`: Toggle sorting of creatures between mana value and popularity (EDHRec Rank).
+- `v`: Opens the scryfall page for the selected creature in your browser.
+
+> [!NOTE]
+> Apart from `tab`, the other interactions cannot be done while the focus is on the Filter panel.
 
 
 ## Caching

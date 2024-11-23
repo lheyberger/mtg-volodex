@@ -83,7 +83,7 @@ class CreatureApp(App):
         )
         self.creature_list = ListView(
             id='creature_list',
-            classes='column w20',
+            classes='column w30',
         )
         self.creature_detail = Static(
             'Select a creature to view details.',
